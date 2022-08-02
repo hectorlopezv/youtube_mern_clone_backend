@@ -1,0 +1,25 @@
+{
+  "name": "youtube_mern_clone_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hectorlopezv/youtube_mern_clone_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hectorlopezv/youtube_mern_clone_backend/issues"
+  },
+  "homepage": "https://github.com/hectorlopezv/youtube_mern_clone_backend#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.5.0",
+    "nodemon": "^2.0.19"
+  }
+}
