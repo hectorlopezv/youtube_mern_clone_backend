@@ -4,7 +4,7 @@ import {
   dislikeVideo,
   getUser,
   likeaVideo,
-  subscribeUser,
+  subscribe,
   unSubscribeUser,
   updateUser,
 } from "../controllers/user.js";
@@ -22,7 +22,7 @@ router.delete("/:id", verifyToken, deleteUser);
 router.get("/find/:id", getUser);
 
 //Subscribe User
-router.put("/sub/:id", verifyToken, subscribeUser);
+router.put("/sub/:id", verifyToken, subscribe);
 
 //unSubscribe User
 router.put("/unsub/:id", verifyToken, unSubscribeUser);
