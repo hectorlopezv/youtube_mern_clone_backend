@@ -1,34 +1,86 @@
-export const updateUser = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+import User from "../models/user.js";
+
+export const updateUser = async (req, res) => {
+  if (req.params.id == req.user.id) {
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    return next(createError(403, "You are not authorized"));
+  }
 };
 
-export const deleteUser = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+export const deleteUser = async (req, res) => {
+  if (req.params.id == req.user.id) {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      res.status(200).json("User has been deleted");
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    return next(createError(403, "You are not authorized"));
+  }
 };
 
-export const getUser = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const subscribeUser = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+export const subscribeUser = async (req, res) => {
+  try {
+    await User.findById(req.user.id, {
+      $push: { subscribedUsers: req.params.id },
+    });
+    await User.findById(req.params.id, {
+      $inc: { subscribers: 1 },
+    });
+
+    res.status(200).json("User has been subscribed");
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const unSubscribeUser = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+export const unSubscribeUser = async (req, res) => {
+  try {
+    await User.findById(req.user.id, {
+      $pull: { subscribedUsers: req.params.id },
+    });
+    await User.findById(req.params.id, {
+      $inc: { subscribers: -1 },
+    });
+
+    res.status(200).json("User has been subscribed");
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const likeaVideo = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+export const likeaVideo = async (req, res) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const dislikeVideo = (req, res) => {
-  console.log("test is working");
-  res.json({ message: "test is working" });
+export const dislikeVideo = async (req, res) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
 };

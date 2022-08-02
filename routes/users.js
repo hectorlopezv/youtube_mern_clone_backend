@@ -8,28 +8,29 @@ import {
   unSubscribeUser,
   updateUser,
 } from "../controllers/user.js";
+import { verifyToken } from "../veriftToken.js";
 
 const router = Router();
 
 //Update User
-router.put("/:id", updateUser);
+router.put("/:id", verifyToken, updateUser);
 
 //Delete User
-router.delete("/:id", deleteUser);
+router.delete("/:id", verifyToken, deleteUser);
 
 //Get a User
 router.get("/find/:id", getUser);
 
 //Subscribe User
-router.put("/sub/:id", subscribeUser);
+router.put("/sub/:id", verifyToken, subscribeUser);
 
 //unSubscribe User
-router.put("/unsub/:id", unSubscribeUser);
+router.put("/unsub/:id", verifyToken, unSubscribeUser);
 
 //Like  A Video
-router.put("/like/:id", likeaVideo);
+router.put("/like/:id", verifyToken, likeaVideo);
 
 //Dislike a Video
-router.put("/dislike/:id", dislikeVideo);
+router.put("/dislike/:id", verifyToken, dislikeVideo);
 
 export default router;
