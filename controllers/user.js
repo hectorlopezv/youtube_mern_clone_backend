@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Video from "../models/video.js";
 
 export const updateUser = async (req, res, next) => {
   if (req.params.id == req.user.id) {
@@ -49,7 +50,7 @@ export const subscribe = async (req, res, next) => {
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: 1 },
     });
-    res.status(200).json("Subscription successfull.")
+    res.status(200).json("Subscription successfull.");
   } catch (err) {
     next(err);
   }
@@ -72,6 +73,13 @@ export const unSubscribeUser = async (req, res, next) => {
 
 export const likeaVideo = async (req, res) => {
   try {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet: { likes: id },
+      $pull: { dislikes: id },
+    });
+    res.status(200).json("Video liked");
   } catch (error) {
     next(error);
   }
@@ -79,6 +87,13 @@ export const likeaVideo = async (req, res) => {
 
 export const dislikeVideo = async (req, res) => {
   try {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
+    await Video.findByIdAndUpdate(videoId, {
+      $pull: { likes: id },
+      $addToSet: { dislikes: id },
+    });
+    res.status(200).json("Video disliked");
   } catch (error) {
     next(error);
   }
