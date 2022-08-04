@@ -35,8 +35,11 @@ router.get("/random", random);
 
 router.get("/sub", verifyToken, sub);
 
+//tags
 router.get("/tags", getByTag);
 
+
+//search
 router.get("/search", search);
 
 export default router;
